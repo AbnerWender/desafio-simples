@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>É o Dino</title>
+</head>
+<body>
+
+    <header id="header-site">
+        <div id="img-header">
+            <img src="imagens/logo-dino.png">
+        </div>
+
+        <nav id="nav-header">
+            <div id="box-btn-dino">
+                <button id="btn-dino">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </button>
+            </div>
+
+            <ul>
+                <li class="item-nav-header">
+                    <a href="#">Inicio</a>
+                </li>
+
+                <li class="item-nav-header">
+                    <a href="#">Sobre</a>
+                </li>
+
+                <li class="item-nav-header">
+                    <a href="#">Olympia</a>
+                </li>
+
+                <li class="item-nav-header">
+                    <a href="#">Treinos</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="area-informacao">
+    
+            <p id="texto">
+                Mussum Ipsum, cacilds vidis litro abertis.  Si num tem leite então bota uma pinga aí cumpadi! Delegadis gente finis, bibendum egestas augue arcu ut est. Quem num gosta di mim que vai caçá sua turmis! Bota 1 metro de cachacis aí pra viagem!
+
+                Mauris nec dolor in eros commodo tempor. Aenean aliquam molestie leo, vitae iaculis nisl. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. Vehicula non. Ut sed ex eros. Vivamus sit amet nibh non tellus tristique interdum. Nulla id gravida magna, ut semper sapien.
+
+                Per aumento de cachacis, eu reclamis. Nullam volutpat risus nec leo commodo, ut interdum diam laoreet. Sed non consequat odio. Eu nunca mais boto a boca num copo de cachaça, agora eu só uso canudis! Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis.
+
+                Suco de cevadiss deixa as pessoas mais interessantis. Em pé sem cair, deitado sem dormir, sentado sem cochilar e fazendo pose. Per aumento de cachacis, eu reclamis. Vehicula non. Ut sed ex eros. Vivamus sit amet nibh non tellus tristique interdum.
+            </p>
+
+        <img src="imagens/dino-bombado.png">
+    </section>
+
+
+
+
+
+
+
+</body>
+
+<script>
+    var btnDino = document.getElementById("btn-dino");
+    var navHeader = document.querySelector("#nav-header ul");
+
+    btnDino.addEventListener('click', function(evento){
+        evento.preventDefault();
+
+        btnDino.classList.toggle('ativo')
+        navHeader.classList.toggle('ativo');
+    });
+
+
+
+
+</script>
+</html>
