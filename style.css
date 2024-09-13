@@ -120,15 +120,22 @@
         position: absolute;
         background-color: #202020;
         height: fit-content;
+        right: 0;
     }
 
     #header-site #nav-header ul.ativo{
         display: block;
-        width: 300px;
+        text-align: center;
+        width: 500px;
+        height: 300;
         right: 0;
-        top: 101%;
+        top: 101%;}
 
+    #area-informacao img{
+        height: 50px;
+        width: 50px;
     }
+
 }
 
 @media (max-width: 525px){ v +
@@ -159,9 +166,37 @@
     }
 }
 
-#area-informacao{
+#titulo-dino{
     display: flex;
     align-items: center;
     flex-direction: row;
-    justify-content: space-around;
+    padding: 25px
+
 }
+
+#area-informacao{
+    display: flex;
+    /* align-items: center; */
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0px 25px 0px 25px;
+    gap: 25px;
+
+}
+
+#area-informacao img{
+    height: 250px;
+    width: 250px;
+}
+
+#box-texto {
+    background-color: #dddddd;
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 15px 25px;
+}
+
+/* #box-foto1 {
+    background-color: #dddddd;
+    border-radius: 250px;
+} */
