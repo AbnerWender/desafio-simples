@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/style.css">
     <title>É o Dino</title>
 </head>
 <body>
@@ -62,21 +62,262 @@
         </div>
     </section>
 
+    <section id="sec-carrosel">
+
+        <div class="carrosel">
+            <div class="nav nav-left">
+                <button><</button>
+            </div>
+
+            <div class="carrosel-content">
+                <div class="slide">
+                    <div class="conteudo-produto">
+                        <div class="box-img-produto">
+                            <img src="imagens/dino3.jpg">
+                        </div>
+                            <div class="info-produto">
+                                <h2>Dino Gigante</h2>
+                                <span>R$ 130,00</span>
+                            </div>
+                            <div class="box-cta">
+                                <button class="cta-produto">Adicionar</button>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <div class="conteudo-produto">
+                        <div class="box-img-produto">
+                            <img src="imagens/dino3.jpg">
+                        </div>
+                            <div class="info-produto">
+                                <h2>Dino Gigante</h2>
+                                <span>R$ 130,00</span>
+                            </div>
+                            <div class="box-cta">
+                                <button class="cta-produto">Adicionar</button>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <div class="conteudo-produto">
+                        <div class="box-img-produto">
+                            <img src="imagens/dino3.jpg">
+                        </div>
+                            <div class="info-produto">
+                                <h2>Dino Gigante</h2>
+                                <span>R$ 130,00</span>
+                            </div>
+                            <div class="box-cta">
+                                <button class="cta-produto">Adicionar</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav nav-right">
+                <button>></button>
+            </div>
+        </div>
+
+
+
+    </section>
+
 </body>
 
 <script>
-    var btnDino = document.getElementById("btn-dino");
-    var navHeader = document.querySelector("#nav-header ul");
 
-    btnDino.addEventListener('click', function(evento){
-        evento.preventDefault();
+    document.addEventListener('DOMContentLoaded', function(){
 
-        btnDino.classList.toggle('ativo')
-        navHeader.classList.toggle('ativo');
+        var btnDino = document.getElementById("btn-dino");
+        var navHeader = document.querySelector("#nav-header ul");
+
+        btnDino.addEventListener('click', function(evento){
+            evento.preventDefault();
+
+            btnDino.classList.toggle('ativo');
+            navHeader.classList.toggle('ativo');
+        });
     });
 
 
+    var carrosel = document.querySelector('.carrosel');
+    var carroselContent = document.querySelector('.carrosel-content');
+    var slides = document.querySelectorAll('.slide');
+    var arrayOfSlides = Array.prototype.slice.call(slides);
+    var carroselDisplaying;
+    var screenSize;
+    setScreenSize();
+    var lengthOfSlides;
 
+    function addClone(){
+        var lastSlide = carroselContent.lastElementChild.cloneNode(true);
+        lastSlide.style.left = (-lengthOfSlides) + 'px';
+        carroselContent.insertBefore(lastSlide, carroselContent.firstChild);
+    }
+    
+    function removeClone(){
+        var firstSlide = carroselContent.firstChild;
+        firstSlide.parentNode.removeChild(firstSlide);
+    }
+
+    function moveSlideRigth(){
+        var slides = document.querySelectorAll('.slide');
+        var slideArray = Array.prototype.slice.call(slides);
+        var width = 0;
+    
+        slideArray.forEach(function(elemento, i){
+            elemento.style.left = width + 'px';
+            width += lengthOfSlides;
+
+        });
+        addClone();
+    }
+    moveSlideRigth();
+
+
+    function moveSlideLeft(){
+        var slides = document.querySelectorAll('.slide');
+        var slideArray = Array.prototype.slice.call(slides);
+        slideArray = slideArray.reverse();
+        var maxWidth = (slideArray.length - 1) * lengthOfSlides;
+
+        slideArray.forEach(function(elemento, i){
+            maxWidth -= lengthOfSlides;
+            elemento.style.left = maxWidth + 'px';
+        })
+
+    }
+
+    window.addEventListener('resize', setScreenSize);
+    
+    function setScreenSize(){
+        if(window.innerWidth >= 500){
+            carroselDisplaying = 3;
+
+        }else if(window.innerWidth >= 300){
+            carroselDisplaying = 2
+        }else{
+            carroselDisplaying  = 1;
+        }
+        getScreenSize();
+    }
+
+    function getScreenSize(){
+        var slides = document;querySelectorAll('.slide');
+        var slideArray = Array.prototype.slice.call(slides);
+        lengthOfSlides = (carrosel.offsetWidth / carroselDisplaying);
+        var initialWidth = lengthOfSlides;
+
+        slideArray.forEach(function(elemento){
+            elemento.style.width = lengthOfSlides + 'px';
+            elemento.style.left = initialWidth + 'px';
+            initialWidth += lengthOfSlides;
+        });
+    }
+
+    var rightNav = document.querySelector('.nav-right');
+    rightNav.addEventListener('click', moveLeft);
+
+    var moving = true;
+
+    function moveRight(){
+        if(moving){
+            moving = false;
+            var lastSlide = carroselContent.lastElementChild;
+            carroselContent.insertBefore(lastSlide, carroselContent.firstChild);
+            removeClone();
+            var firstSlide = carroselContent.firstElementChild;
+            firstSlide.addEventListener('transitioned', activateAgain);
+            moveSlideRigth();
+        }
+    }
+
+    function activateAgain(){
+        var firstSlide = carroselContent.firstElementChild;
+        moving = true;
+        firstSlide,removeEventListener('transitioned', activateAgain);
+
+    }
+
+    var leftNav = document.querySelector('.nav-left');
+    leftNav.addEventListener('click', moveRight);
+
+    function moveLeft(){
+        if(moving){
+            moving = false;
+            removeClone();
+            var firstSlide = carroselContent.firstElementChild;
+            firstSlide.addEventListener('transitioned', replaceToEnd);
+            moveSlideLeft();
+        }
+    }
+
+    function replaceToEnd(){
+        var firstSlide = carroselContent.firstElementChild;
+        firstSlide.parentNode.removeChild(firstSlide);
+        carroselContent.appendChild(firstSlide);
+        firstSlide.style.left = ((arrayOfSlides.length - 1)*lengthOfSlides) + 'px';
+        addClone();
+        moving = true;
+        firstSlide.removeEventListener('trasitioned', replaceToEnd);
+    }
+
+    carroselContent.addEventListener('mousedown', seeMovement);
+
+    var initialX;
+    var initialPos;
+
+    function seeMovement(elemento){
+        initialX = elemento,clientX
+        getInitialPos();
+        carroselContent.addEventListener('mousemove', slightMove);
+        document.addEventListener('mouseup', moveBasedOnMouse);
+    }
+
+    function slightMove(elemento){
+        if(moving){
+            var movingX = elemento.clientX;
+            var diference = initialX - movingX;
+            if(Math.abs(diference) < (lengthOfSlides / 4)){
+                slightMoveSlides(diference);
+            }
+        }
+    }
+
+    function getInitialPos(){
+        var slides = document.querySelectorAll('.slides');
+        var slideArray = Array.prototype.slice.call(slides);
+        initialPos = [];
+
+        // slidesArray.forEach(function(elemento, i){
+        //     var oldLeft = initialPos[i];
+
+    }
+
+    function slightMoveSlides(newX){
+        var slides = document.querySelectorAll('.slides');
+        var slideArray = Array.prototype.slice.call(slides);
+
+        slidesArray.forEach(function(elemento, i){
+            var oldLeft = initialPos[i];
+            elemento.style.left = (oldLeft + newX) + 'px';
+        });
+    }
+
+    function moveBasedOnMouse(elemento){
+        var finalX = elemento.clientX;
+        if(initialX - finalX > 0){
+            moveRight();
+        }else if(initialX - finalX < 0){
+            moveLeft();
+        }
+
+        document.removeEventListener('mouseup', moveBasedOnMouse);
+        carroselContent.removeEventListener('mousemove', slightMove);
+    }
 
 </script>
 </html>
